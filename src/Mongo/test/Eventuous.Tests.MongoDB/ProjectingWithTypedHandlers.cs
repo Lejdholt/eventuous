@@ -1,17 +1,17 @@
 using Eventuous.AspNetCore.Web;
 using Eventuous.EventStore.Subscriptions;
-using Eventuous.Projections.MongoDB;
-using Eventuous.Projections.MongoDB.Tools;
+using Eventuous.MongoDB;
+using Eventuous.MongoDB.Tools;
 using Eventuous.Sut.Domain;
-using Eventuous.Tests.Projections.MongoDB.Fixtures;
+using Eventuous.Tests.MongoDB.Fixtures;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using static Eventuous.Sut.Domain.BookingEvents;
-using static Eventuous.Tests.Projections.MongoDB.Fixtures.IntegrationFixture;
+using static Eventuous.Tests.MongoDB.Fixtures.IntegrationFixture;
 
-namespace Eventuous.Tests.Projections.MongoDB;
+namespace Eventuous.Tests.MongoDB;
 
 public sealed class ProjectingWithTypedHandlers : IDisposable {
     readonly TestServer _host;

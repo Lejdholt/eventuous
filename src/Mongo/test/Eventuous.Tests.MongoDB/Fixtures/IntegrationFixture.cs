@@ -6,7 +6,7 @@ using MongoDB.Driver;
 using NodaTime;
 using NodaTime.Serialization.SystemTextJson;
 
-namespace Eventuous.Tests.Projections.MongoDB.Fixtures;
+namespace Eventuous.Tests.MongoDB.Fixtures;
 
 public sealed class IntegrationFixture : IAsyncDisposable {
     public IEventStore      EventStore     { get; }

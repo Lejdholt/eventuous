@@ -1,7 +1,7 @@
 using MongoDB.Bson.Serialization;
 using MongoDB.Bson.Serialization.Conventions;
 
-namespace Eventuous.Projections.MongoDB.Tools; 
+namespace Eventuous.MongoDB.Tools; 
 
 [PublicAPI]
 public static class MongoDefaults {

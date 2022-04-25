@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using static System.String;
 
-namespace Eventuous.Projections.MongoDB.Tools; 
+namespace Eventuous.MongoDB.Tools; 
 
 [PublicAPI]
 public static class ongoCollectionExtensions {

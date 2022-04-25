@@ -3,9 +3,9 @@ using Eventuous.Subscriptions.Checkpoints;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver.Linq;
 using static Eventuous.Subscriptions.Diagnostics.SubscriptionsEventSource;
-using MongoDefaults = Eventuous.Projections.MongoDB.Tools.MongoDefaults;
+using MongoDefaults = Eventuous.MongoDB.Tools.MongoDefaults;
 
-namespace Eventuous.Projections.MongoDB;
+namespace Eventuous.MongoDB;
 
 [PublicAPI]
 public class MongoCheckpointStore : ICheckpointStore {
@@ -52,7 +52,7 @@ public class MongoCheckpointStore : ICheckpointStore {
         await Checkpoints.ReplaceOneAsync(
                 x => x.Id == checkpoint.Id,
                 checkpoint,
-                MongoDefaults.DefaultReplaceOptions,
+                Tools.MongoDefaults.DefaultReplaceOptions,
                 cancellationToken
             )
             .NoContext();

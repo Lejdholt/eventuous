@@ -1,9 +1,11 @@
 using System.Runtime.CompilerServices;
-using Eventuous.Projections.MongoDB.Tools;
+using Eventuous.MongoDB.Tools;
 using Eventuous.Subscriptions.Context;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization;
 using static Eventuous.Subscriptions.Diagnostics.SubscriptionsEventSource;
 
-namespace Eventuous.Projections.MongoDB;
+namespace Eventuous.MongoDB;
 
 [PublicAPI]
 public abstract class MongoProjection<T> : BaseEventHandler where T : ProjectedDocument {
@@ -65,6 +67,9 @@ public abstract class MongoProjection<T> : BaseEventHandler where T : ProjectedD
         async ValueTask<Operation<T>> Project(MessageConsumeContext<TEvent> ctx) {
             var filter = getFilter(ctx.Message, Builders<T>.Filter);
             var update = await getUpdate(ctx.Message, Builders<T>.Update);
+            var serializer = BsonSerializer.SerializerRegistry.GetSerializer<T>();
+            var rendered = update.Render(serializer, BsonSerializer.SerializerRegistry).AsBsonDocument;
+            var json = rendered.ToJson();
             return new UpdateOperation<T>(filter, update);
         }
     }

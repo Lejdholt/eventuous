@@ -1,4 +1,4 @@
-namespace Eventuous.Projections.MongoDB;
+namespace Eventuous.MongoDB;
 
 public delegate string GetDocumentId<in TEvent>(TEvent evt);
 

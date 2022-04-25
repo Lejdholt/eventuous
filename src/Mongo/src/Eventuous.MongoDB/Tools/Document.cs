@@ -1,4 +1,4 @@
-namespace Eventuous.Projections.MongoDB.Tools;
+namespace Eventuous.MongoDB.Tools;
 
 public abstract record Document(string Id);
 

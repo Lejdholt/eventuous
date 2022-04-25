@@ -1,9 +1,9 @@
-using Eventuous.Projections.MongoDB.Tools;
+using Eventuous.MongoDB.Tools;
 using NodaTime;
 using static Eventuous.Sut.Domain.BookingEvents;
-using static Eventuous.Tests.Projections.MongoDB.Fixtures.IntegrationFixture;
+using static Eventuous.Tests.MongoDB.Fixtures.IntegrationFixture;
 
-namespace Eventuous.Tests.Projections.MongoDB.Fixtures;
+namespace Eventuous.Tests.MongoDB.Fixtures;
 
 public static class DomainFixture {
     static DomainFixture() => TypeMap.RegisterKnownEventTypes();

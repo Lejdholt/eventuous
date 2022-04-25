@@ -2,7 +2,7 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventuous", "src\Core\src\Eventuous\Eventuous.csproj", "{7494C655-CC42-447C-A2D3-97408F17CCC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventuous.Projections.MongoDB", "src\Mongo\src\Eventuous.Projections.MongoDB\Eventuous.Projections.MongoDB.csproj", "{0649460A-DE39-4AD4-996A-7104E28C68FB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventuous.MongoDB", "src\Mongo\src\Eventuous.MongoDB\Eventuous.MongoDB.csproj", "{0649460A-DE39-4AD4-996A-7104E28C68FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{C60C6094-2A03-45B6-AB33-C514C35DF823}"
 EndProject
@@ -90,7 +90,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2B7F84B7-C0E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventuous.Diagnostics.Logging", "src\Diagnostics\src\Eventuous.Diagnostics.Logging\Eventuous.Diagnostics.Logging.csproj", "{2E59CE25-FA58-418C-B1FD-9BF974710F9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventuous.Tests.Projections.MongoDB", "src\Mongo\test\Eventuous.Tests.Projections.MongoDB\Eventuous.Tests.Projections.MongoDB.csproj", "{0070EA3B-5244-4AAF-B59F-D1746C9296AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Eventuous.Tests.MongoDB", "src\Mongo\test\Eventuous.Tests.MongoDB\Eventuous.Tests.MongoDB.csproj", "{0070EA3B-5244-4AAF-B59F-D1746C9296AC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CCD807D2-F4F2-4EC2-A03D-8943F73993A6}"
 EndProject

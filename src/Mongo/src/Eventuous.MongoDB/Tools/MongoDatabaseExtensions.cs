@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using MongoDB.Driver.Linq;
 
-namespace Eventuous.Projections.MongoDB.Tools; 
+namespace Eventuous.MongoDB.Tools; 
 
 [PublicAPI]
 public static class MongoDatabaseExtensions {

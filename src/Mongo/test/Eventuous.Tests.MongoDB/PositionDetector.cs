@@ -1,6 +1,6 @@
 using EventStore.Client;
 
-namespace Eventuous.Tests.Projections.MongoDB; 
+namespace Eventuous.Tests.MongoDB; 
 
 public static class PositionDetector {
     public static async Task<ulong?> GetPositionToSubscribe(this EventStoreClient client, string stream) {

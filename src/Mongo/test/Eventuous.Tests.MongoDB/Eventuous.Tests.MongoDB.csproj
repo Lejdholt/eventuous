@@ -3,10 +3,12 @@
         <IsTestProject>true</IsTestProject>
         <IncludeTestHost>true</IncludeTestHost>
         <IncludeSutApp>true</IncludeSutApp>
+        <TargetFramework>net6.0</TargetFramework>
+        <TargetFrameworks></TargetFrameworks>
     </PropertyGroup>
     <ItemGroup>
         <ProjectReference Include="$(EsdbRoot)\Eventuous.EventStore\Eventuous.EventStore.csproj" />
-        <ProjectReference Include="$(LocalRoot)\Eventuous.Projections.MongoDB\Eventuous.Projections.MongoDB.csproj" />
+        <ProjectReference Include="..\..\src\Eventuous.MongoDB\Eventuous.MongoDB.csproj" />
         <ProjectReference Include="$(ExtRoot)\Eventuous.AspNetCore.Web\Eventuous.AspNetCore.Web.csproj" />
     </ItemGroup>
     <ItemGroup>
