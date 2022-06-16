@@ -14,12 +14,15 @@ public abstract class CommandHttpApiBase<TAggregate> : ControllerBase where TAgg
     /// Call this method from your HTTP endpoints to handle commands and wrap the result properly.
     /// </summary>
     /// <param name="command">Command instance</param>
+    /// <param name="metadata"></param>
     /// <param name="cancellationToken">Request cancellation token</param>
     /// <typeparam name="TCommand">Command type</typeparam>
     /// <returns></returns>
-    protected async Task<ActionResult<Result>> Handle<TCommand>(TCommand command, CancellationToken cancellationToken)
+    protected async Task<ActionResult<Result>> Handle<TCommand>(TCommand command,
+        Metadata                                                         metadata,
+        CancellationToken                                                cancellationToken)
         where TCommand : class {
-        var result = await _service.Handle(command, cancellationToken);
+        var result = await _service.Handle(command, metadata, cancellationToken);
         return AsActionResult<TAggregate>(result);
     }
     

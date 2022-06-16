@@ -153,10 +153,13 @@ public abstract class ApplicationService<TAggregate, TState, TId>
     /// The command handler. Call this function from your edge (API).
     /// </summary>
     /// <param name="command">Command to execute</param>
+    /// <param name="metadata"></param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns><see cref="Result{TState,TId}"/> of the execution</returns>
     /// <exception cref="Exceptions.CommandHandlerNotFound{TCommand}"></exception>
-    public async Task<Result<TState, TId>> Handle(object command, CancellationToken cancellationToken) {
+    public async Task<Result<TState, TId>> Handle(object command,
+        Metadata                                         metadata,
+        CancellationToken                                cancellationToken) {
         var commandType = Ensure.NotNull(command).GetType();
 
         if (!_handlers.TryGetValue(commandType, out var registeredHandler)) {
@@ -202,8 +205,8 @@ public abstract class ApplicationService<TAggregate, TState, TId>
             var storeResult = await Store.Store(
                     streamName != default ? streamName : GetAggregateStreamName(result),
                     result,
-                    cancellationToken
-                )
+                    metadata,
+                    cancellationToken)
                 .NoContext();
 
             var changes = result.Changes.Select(x => new Change(x, TypeMap.GetTypeName(x)));
@@ -226,8 +229,10 @@ public abstract class ApplicationService<TAggregate, TState, TId>
         }
     }
 
-    async Task<Result> IApplicationService.Handle(object command, CancellationToken cancellationToken) {
-        var result = await Handle(command, cancellationToken).NoContext();
+    async Task<Result> IApplicationService.Handle(object command,
+        Metadata                                         metadata,
+        CancellationToken                                cancellationToken) {
+        var result = await Handle(command, metadata, cancellationToken).NoContext();
 
         return result switch {
             OkResult<TState, TId>(var aggregateState, var enumerable, _) => new OkResult(aggregateState, enumerable),

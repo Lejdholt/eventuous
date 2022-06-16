@@ -30,7 +30,7 @@ public class StoringEventsWithCustomStream : NaiveFixture {
             new(new RoomBooked(cmd.BookingId, cmd.RoomId, cmd.CheckIn, cmd.CheckOut, cmd.Price), "RoomBooked")
         };
 
-        var result = await Service.Handle(cmd, default);
+        var result = await Service.Handle(cmd, new Metadata(), default);
 
         result.Success.Should().BeTrue();
         result.Changes.Should().BeEquivalentTo(expected);
@@ -55,7 +55,7 @@ public class StoringEventsWithCustomStream : NaiveFixture {
             Auto.Create<decimal>()
         );
 
-        await Service.Handle(cmd, default);
+        await Service.Handle(cmd, new Metadata(), default);
 
         var secondCmd = new Commands.RecordPayment(cmd.BookingId, Auto.Create<string>(), cmd.Price);
 
@@ -71,7 +71,7 @@ public class StoringEventsWithCustomStream : NaiveFixture {
             new(new BookingFullyPaid(secondCmd.BookingId), "BookingFullyPaid")
         };
 
-        var result = await Service.Handle(secondCmd, default);
+        var result = await Service.Handle(secondCmd, new Metadata(), default);
 
         result.Success.Should().BeTrue();
         result.Changes.Should().BeEquivalentTo(expected);

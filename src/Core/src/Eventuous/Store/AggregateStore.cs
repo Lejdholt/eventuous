@@ -39,12 +39,11 @@ public class AggregateStore : IAggregateStore {
         AggregateFactoryRegistry?       factoryRegistry = null
     ) : this(eventStore, eventStore, amendEvent, factoryRegistry) { }
 
-    public Task<AppendEventsResult> Store<T>(
-        StreamName        streamName,
-        T                 aggregate,
-        CancellationToken cancellationToken
-    ) where T : Aggregate
-        => _eventWriter.Store(streamName, aggregate, _amendEvent, cancellationToken);
+    public Task<AppendEventsResult> Store<T>(StreamName streamName,
+        T                                               aggregate,
+        Metadata                                        metadata,
+        CancellationToken                               cancellationToken) where T : Aggregate
+        => _eventWriter.Store(streamName, aggregate, _amendEvent, metadata, cancellationToken);
 
     public Task<T> Load<T>(StreamName streamName, CancellationToken cancellationToken) where T : Aggregate
         => LoadInternal<T>(streamName, true, cancellationToken);

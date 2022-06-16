@@ -3,13 +3,12 @@ using static Eventuous.Diagnostics.EventuousEventSource;
 namespace Eventuous;
 
 public static class StoreFunctions {
-    public static async Task<AppendEventsResult> Store<T>(
-        this IEventWriter              eventWriter,
-        StreamName                     streamName,
-        T                              aggregate,
-        Func<StreamEvent, StreamEvent> amendEvent,
-        CancellationToken              cancellationToken
-    ) where T : Aggregate {
+    public static async Task<AppendEventsResult> Store<T>(this IEventWriter eventWriter,
+        StreamName                                                          streamName,
+        T                                                                   aggregate,
+        Func<StreamEvent, StreamEvent>                                      amendEvent,
+        Metadata                                                            metadata,
+        CancellationToken                                                   cancellationToken) where T : Aggregate {
         Ensure.NotNull(aggregate);
 
         if (aggregate.Changes.Count == 0) return AppendEventsResult.NoOp;
@@ -36,7 +35,7 @@ public static class StoreFunctions {
         }
 
         StreamEvent ToStreamEvent(object evt, int position) {
-            var streamEvent = new StreamEvent(Guid.NewGuid(), evt, new Metadata(), "", position);
+            var streamEvent = new StreamEvent(Guid.NewGuid(), evt, metadata, "", position);
             return amendEvent(streamEvent);
         }
     }

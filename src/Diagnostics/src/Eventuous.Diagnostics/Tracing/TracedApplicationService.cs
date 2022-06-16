@@ -15,11 +15,11 @@ public class TracedApplicationService<T> : IApplicationService<T> where T : Aggr
         InnerService        = appService;
     }
 
-    public async Task<Result> Handle(object command, CancellationToken cancellationToken) {
+    public async Task<Result> Handle(object command, Metadata metadata, CancellationToken cancellationToken) {
         using var activity = AppServiceActivity.StartActivity(_appServiceTypeName, command);
 
         try {
-            var result = await InnerService.Handle(command, cancellationToken).NoContext();
+            var result = await InnerService.Handle(command, new Metadata(), cancellationToken).NoContext();
 
             if (activity != null) {
                 if (result is ErrorResult error) {
@@ -55,11 +55,13 @@ public class TracedApplicationService<T, TState, TId> : IApplicationService<T, T
         InnerService        = appService;
     }
 
-    public async Task<Result<TState, TId>> Handle(object command, CancellationToken cancellationToken) {
+    public async Task<Result<TState, TId>> Handle(object command,
+        Metadata                                         metadata,
+        CancellationToken                                cancellationToken) {
         using var activity = AppServiceActivity.StartActivity(_appServiceTypeName, command);
 
         try {
-            var result = await InnerService.Handle(command, cancellationToken).NoContext();
+            var result = await InnerService.Handle(command, new Metadata(), cancellationToken).NoContext();
 
             if (activity != null) {
                 if (result is ErrorResult<TState, TId> error) {

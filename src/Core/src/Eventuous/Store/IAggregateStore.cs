@@ -13,17 +13,21 @@ public interface IAggregateStore {
     /// <typeparam name="T">Aggregate type</typeparam>
     /// <returns></returns>
     public Task<AppendEventsResult> Store<T>(T aggregate, CancellationToken cancellationToken) where T : Aggregate
-        => this.Store(StreamName.For<T>(aggregate.GetId()), aggregate, cancellationToken);
+        => this.Store(StreamName.For<T>(aggregate.GetId()), aggregate, new Metadata(), cancellationToken);
 
     /// <summary>
     /// Store the new or updated aggregate state
     /// </summary>
     /// <param name="streamName"></param>
     /// <param name="aggregate">Aggregate instance, which needs to be persisted</param>
+    /// <param name="metadata"></param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <typeparam name="T">Aggregate type</typeparam>
     /// <returns></returns>
-    Task<AppendEventsResult> Store<T>(StreamName streamName, T aggregate, CancellationToken cancellationToken)
+    Task<AppendEventsResult> Store<T>(StreamName streamName,
+        T                                        aggregate,
+        Metadata                                 metadata,
+        CancellationToken                        cancellationToken)
         where T : Aggregate;
 
     /// <summary>

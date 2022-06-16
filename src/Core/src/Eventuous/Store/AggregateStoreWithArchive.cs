@@ -20,9 +20,12 @@ public class AggregateStore<TReader> : IAggregateStore where TReader : class, IE
         _archiveReader   = Ensure.NotNull(archiveReader);
     }
 
-    public Task<AppendEventsResult> Store<T>(StreamName streamName, T aggregate, CancellationToken cancellationToken)
+    public Task<AppendEventsResult> Store<T>(StreamName streamName,
+        T                                               aggregate,
+        Metadata                                        metadata,
+        CancellationToken                               cancellationToken)
         where T : Aggregate
-        => _eventStore.Store(streamName, aggregate, _amendEvent, cancellationToken);
+        => _eventStore.Store(streamName, aggregate, _amendEvent, new Metadata(), cancellationToken);
 
     public Task<T> Load<T>(StreamName streamName, CancellationToken cancellationToken) where T : Aggregate
         => LoadInternal<T>(streamName, true, cancellationToken);

@@ -36,7 +36,7 @@ public class StoringEvents : NaiveFixture {
             )
         };
 
-        var result = await Service.Handle(cmd, default);
+        var result = await Service.Handle(cmd, new Metadata(), default);
 
         result.Success.Should().BeTrue();
         result.Changes.Should().BeEquivalentTo(expected);
