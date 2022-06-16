@@ -19,7 +19,7 @@ public class TracedApplicationService<T> : IApplicationService<T> where T : Aggr
         using var activity = AppServiceActivity.StartActivity(_appServiceTypeName, command);
 
         try {
-            var result = await InnerService.Handle(command, new Metadata(), cancellationToken).NoContext();
+            var result = await InnerService.Handle(command, metadata, cancellationToken).NoContext();
 
             if (activity != null) {
                 if (result is ErrorResult error) {
@@ -61,7 +61,7 @@ public class TracedApplicationService<T, TState, TId> : IApplicationService<T, T
         using var activity = AppServiceActivity.StartActivity(_appServiceTypeName, command);
 
         try {
-            var result = await InnerService.Handle(command, new Metadata(), cancellationToken).NoContext();
+            var result = await InnerService.Handle(command, metadata, cancellationToken).NoContext();
 
             if (activity != null) {
                 if (result is ErrorResult<TState, TId> error) {

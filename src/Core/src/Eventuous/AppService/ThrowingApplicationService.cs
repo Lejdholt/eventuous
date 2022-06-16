@@ -11,7 +11,7 @@ public class ThrowingApplicationService<T, TState, TId> : IApplicationService<T,
     public async Task<Result<TState, TId>> Handle(object command,
         Metadata                                         metadata,
         CancellationToken                                cancellationToken) {
-        var result = await _inner.Handle(command, new Metadata(), cancellationToken);
+        var result = await _inner.Handle(command, metadata, cancellationToken);
 
         if (result is ErrorResult<TState, TId> error)
             throw error.Exception ?? new ApplicationException($"Error handling command {command}");
@@ -22,7 +22,7 @@ public class ThrowingApplicationService<T, TState, TId> : IApplicationService<T,
     async Task<Result> IApplicationService.Handle(object command,
         Metadata                                         metadata,
         CancellationToken                                cancellationToken) {
-        var result = await Handle(command, new Metadata(), cancellationToken).NoContext();
+        var result = await Handle(command, metadata, cancellationToken).NoContext();
 
         return result switch {
             OkResult<TState, TId>(var aggregateState, var enumerable, _) => new OkResult(aggregateState, enumerable),
